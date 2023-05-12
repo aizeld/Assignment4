@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -13,5 +15,10 @@ public class Main {
         System.out.println(tree.get(4));
         tree.delete(4);
         System.out.println(tree.get(4));
+
+
+        for (var node : tree) {
+            System.out.println("key is " + node.key + " and value is " + node.value());
+        }
     }
 }

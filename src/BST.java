@@ -1,19 +1,31 @@
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-public class BST<K extends Comparable<K>, V>{
-    private class Node<K,V>{
+import java.util.Iterator;
+public class BST<K extends Comparable<K>, V>
+{
+    private class Node{
         private K key;
         private V value;
-        private Node left, right;
+        private Node left;
+        private Node right;
         public Node(K key, V value){
             this.key = key;
             this.value = value;
-        }}
+        }
 
-        private Node<K,V> root;
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+    }
+
+
+
+        private Node root;
         private int size;
 
 
@@ -21,12 +33,12 @@ public class BST<K extends Comparable<K>, V>{
         public void put(K key, V value){
             if(key == null) throw new IllegalArgumentException("Key cant be null");
             if(root == null){
-                root = new Node<>(key, value);
+                root = new Node(key, value);
                 size++;
             }
 
-            Node<K,V> newnode = new Node<>(key, value);
-            Node<K,V> current = root;
+            Node newnode = new Node(key, value);
+            Node current = root;
 
             while(current != null){
                 if(key.compareTo(current.key) > 0){
@@ -54,7 +66,7 @@ public class BST<K extends Comparable<K>, V>{
         }
         public V get(K key){
             if(key == null)throw new IllegalArgumentException("Can't be found without a key");
-            Node<K,V> current = root;
+            Node current = root;
 
             while(current != null){
                 if(key.compareTo(current.key) > 0) current = current.right;
@@ -71,8 +83,8 @@ public class BST<K extends Comparable<K>, V>{
                 if(key == null){
                     throw new IllegalArgumentException("No no no)");
                 }
-                Node<K,V> current = root;
-                Node<K,V> parent = null;
+                Node current = root;
+                Node parent = null;
 
                 while(current != null){
                     if(key.compareTo(current.key) == 0){
@@ -91,8 +103,8 @@ public class BST<K extends Comparable<K>, V>{
                             break;
                         }
                         else{
-                            Node<K,V> sucessorParent =current;
-                            Node<K,V> sucessor = current.right;
+                            Node sucessorParent =current;
+                            Node sucessor = current.right;
                             while(sucessor.left != null){
                                 sucessorParent = sucessor;
                                 sucessor = sucessor.left;
@@ -117,19 +129,21 @@ public class BST<K extends Comparable<K>, V>{
 
         }
 
-    public Iterable<Node> iterator() {
-        List<Node> nodes = new ArrayList<>();
-        inOrderTraversal(root, nodes);
-        return nodes;
+    public Iterable<K> iterator() {
+        List<K> keys = new ArrayList<>();
+        inOrderTraversal(root,keys);
+        return keys;
     }
-    private void inOrderTraversal(Node node, List<Node> nodes) {
-        if (node == null)
-            return;
 
+    private void inOrderTraversal(Node node, List<K> nodes) {
+        if (node == null) {
+            return;
+        }
         inOrderTraversal(node.left, nodes);
-        nodes.add(node);
+        nodes.add((K)node);
         inOrderTraversal(node.right, nodes);
     }
+
 //
 //        public Iterable<K> iterator(){
 //
