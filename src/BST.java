@@ -2,16 +2,22 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
-public class BST<K extends Comparable<K>, V>
+import java.util.function.Consumer;
+
+public class BST<K extends Comparable<K>, V> implements Iterable<K>
 {
+
+    private int size;
     private class Node{
         private K key;
         private V value;
         private Node left;
         private Node right;
+        private int size;
         public Node(K key, V value){
             this.key = key;
             this.value = value;
+            this.size = 1;
         }
 
         public K getKey() {
@@ -26,7 +32,7 @@ public class BST<K extends Comparable<K>, V>
 
 
         private Node root;
-        private int size;
+        private int size1;
 
 
 
@@ -63,7 +69,13 @@ public class BST<K extends Comparable<K>, V>
                     break;
                 }
             }
+            size1 += 1;
+
         }
+
+
+
+
         public V get(K key){
             if(key == null)throw new IllegalArgumentException("Can't be found without a key");
             Node current = root;
@@ -126,28 +138,45 @@ public class BST<K extends Comparable<K>, V>
                         current = current.left;
                     }
                 }
+                size1-=1;
 
         }
 
-    public Iterable<K> iterator() {
+    @Override
+    public Iterator<K> iterator() {
         List<K> keys = new ArrayList<>();
         inOrderTraversal(root,keys);
-        return keys;
+        return keys.iterator();
     }
+
 
     private void inOrderTraversal(Node node, List<K> nodes) {
         if (node == null) {
             return;
         }
         inOrderTraversal(node.left, nodes);
-        nodes.add((K)node);
+        nodes.add((node.key));
         inOrderTraversal(node.right, nodes);
+    }
+
+
+    @Override
+    public void forEach(Consumer<? super K> action) {
+            while(iterator().hasNext()){
+                action.accept(iterator().next());
+            }
     }
 
 //
 //        public Iterable<K> iterator(){
 //
 //        }
+
+
+
+    public int getSize(){
+            return size1;
+    }
 
     }
 

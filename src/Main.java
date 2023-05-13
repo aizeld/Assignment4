@@ -1,5 +1,7 @@
 import org.w3c.dom.Node;
 
+import java.util.Iterator;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -16,9 +18,12 @@ public class Main {
         tree.delete(4);
         System.out.println(tree.get(4));
 
+        System.out.println(tree.getSize());
 
         for (var node : tree) {
-            System.out.println("key is " + node.key + " and value is " + node.value());
-        }
+            node.
+            System.out.println("key is " + node + " and value is " + value);
+
+    }
     }
 }
